@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Notarization - LegalTech Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-scale-balanced"></i>
+            <span>LegalTech</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="notarization.html">Notarization</a></li>
+            <li><a href="smart-contracts.html">Smart Contracts</a></li>
+            <li><a href="verification.html">Verification</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button class="btn btn-outline">Login</button>
+            <button class="btn btn-primary">Register</button>
+        </div>
+    </nav>
+
+    <!-- Notarization Hero Section -->
+    <section class="page-hero">
+        <div class="hero-content">
+            <h1>Digital Notarization</h1>
+            <p>Securely notarize your documents using blockchain technology</p>
+        </div>
+    </section>
+
+    <!-- Notarization Process -->
+    <section class="notarization-process">
+        <h2>Notarization Process</h2>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Upload Document</h3>
+                    <p>Upload your document in PDF format</p>
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & Drop or Click to Upload</p>
+                        <input type="file" id="documentUpload" accept=".pdf" hidden>
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Verify Identity</h3>
+                    <p>Complete identity verification</p>
+                    <div class="verification-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="ID Number" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="date" placeholder="Date of Birth" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Digital Signature</h3>
+                    <p>Sign the document digitally</p>
+                    <div class="signature-pad">
+                        <canvas id="signatureCanvas"></canvas>
+                        <div class="signature-actions">
+                            <button class="btn btn-outline" id="clearSignature">Clear</button>
+                            <button class="btn btn-primary" id="saveSignature">Save Signature</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Blockchain Recording</h3>
+                    <p>Document is recorded on blockchain</p>
+                    <div class="blockchain-status">
+                        <div class="status-indicator">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Recording to Blockchain...</span>
+                        </div>
+                        <div class="transaction-hash">
+                            <p>Transaction Hash:</p>
+                            <code id="transactionHash">0x0000...0000</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notarization Features -->
+    <section class="notarization-features">
+        <h2>Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Secure Storage</h3>
+                <p>Documents are stored securely on blockchain</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-clock"></i>
+                <h3>24/7 Access</h3>
+                <p>Access your notarized documents anytime</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-check-circle"></i>
+                <h3>Verification</h3>
+                <p>Easy document verification process</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>LegalTech</h4>
+                <p>Revolutionizing legal document processing with blockchain and AI</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="notarization.html">Notarization</a></li>
+                    <li><a href="smart-contracts.html">Smart Contracts</a></li>
+                    <li><a href="verification.html">Verification</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 LegalTech. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Document Upload Handling
+        const uploadArea = document.getElementById('uploadArea');
+        const documentUpload = document.getElementById('documentUpload');
+
+        uploadArea.addEventListener('click', () => documentUpload.click());
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length) handleFile(files[0]);
+        });
+
+        documentUpload.addEventListener('change', (e) => {
+            if (e.target.files.length) handleFile(e.target.files[0]);
+        });
+
+        function handleFile(file) {
+            if (file.type !== 'application/pdf') {
+                alert('Please upload a PDF file');
+                return;
+            }
+            uploadArea.innerHTML = `
+                <i class="fas fa-file-pdf"></i>
+                <p>${file.name}</p>
+                <button class="btn btn-primary">Process Document</button>
+            `;
+        }
+
+        // Signature Pad
+        const canvas = document.getElementById('signatureCanvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        function startDrawing(e) {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        document.getElementById('clearSignature').addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+
+        // Simulate Blockchain Recording
+        document.getElementById('saveSignature').addEventListener('click', () => {
+            const statusIndicator = document.querySelector('.status-indicator');
+            const transactionHash = document.getElementById('transactionHash');
+            
+            statusIndicator.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Recording to Blockchain...</span>';
+            
+            setTimeout(() => {
+                statusIndicator.innerHTML = '<i class="fas fa-check-circle"></i><span>Recorded Successfully!</span>';
+                transactionHash.textContent = '0x' + Math.random().toString(16).substr(2, 64);
+            }, 2000);
+        });
+    </script>
+</body>
+</html> 

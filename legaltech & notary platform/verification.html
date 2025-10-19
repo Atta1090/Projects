@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Verification - LegalTech Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-scale-balanced"></i>
+            <span>LegalTech</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="notarization.html">Notarization</a></li>
+            <li><a href="smart-contracts.html">Smart Contracts</a></li>
+            <li><a href="verification.html">Verification</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button class="btn btn-outline">Login</button>
+            <button class="btn btn-primary">Register</button>
+        </div>
+    </nav>
+
+    <!-- Verification Hero Section -->
+    <section class="page-hero">
+        <div class="hero-content">
+            <h1>Document Verification</h1>
+            <p>AI-powered document verification and fraud detection</p>
+        </div>
+    </section>
+
+    <!-- Document Upload Section -->
+    <section class="verification-upload">
+        <h2>Verify Document</h2>
+        <div class="upload-container">
+            <div class="upload-area" id="verificationUpload">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Drag & Drop or Click to Upload Document</p>
+                <input type="file" id="documentInput" accept=".pdf,.jpg,.jpeg,.png" hidden>
+            </div>
+            <div class="verification-options">
+                <h3>Verification Options</h3>
+                <div class="option-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                        Authenticity Check
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                        Tampering Detection
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                        Metadata Analysis
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Verification Process -->
+    <section class="verification-process">
+        <h2>Verification Process</h2>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-file-upload"></i>
+                </div>
+                <div class="step-content">
+                    <h3>Document Upload</h3>
+                    <p>Upload the document for verification</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="step-content">
+                    <h3>AI Analysis</h3>
+                    <p>AI analyzes document authenticity</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="step-content">
+                    <h3>Blockchain Check</h3>
+                    <p>Verify against blockchain records</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="step-content">
+                    <h3>Verification Complete</h3>
+                    <p>Document authenticity confirmed</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Verification Results -->
+    <section class="verification-results" id="resultsSection" style="display: none;">
+        <h2>Verification Results</h2>
+        <div class="results-container">
+            <div class="result-card">
+                <div class="result-header">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Document Details</h3>
+                </div>
+                <div class="result-content">
+                    <p><strong>File Name:</strong> <span id="fileName">-</span></p>
+                    <p><strong>File Type:</strong> <span id="fileType">-</span></p>
+                    <p><strong>Upload Date:</strong> <span id="uploadDate">-</span></p>
+                </div>
+            </div>
+            <div class="result-card">
+                <div class="result-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Security Analysis</h3>
+                </div>
+                <div class="result-content">
+                    <div class="security-item">
+                        <span>Authenticity</span>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <span>Integrity</span>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 98%"></div>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <span>Metadata</span>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="result-card">
+                <div class="result-header">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Verification Status</h3>
+                </div>
+                <div class="result-content">
+                    <div class="status-badge verified">
+                        <i class="fas fa-check"></i>
+                        Document Verified
+                    </div>
+                    <p class="verification-details">
+                        This document has been verified and is authentic. All security checks have passed successfully.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Verification History -->
+    <section class="verification-history">
+        <h2>Verification History</h2>
+        <div class="history-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Document Name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Property_Deed_2024.pdf</td>
+                        <td>2024-03-15</td>
+                        <td><span class="status-badge verified">Verified</span></td>
+                        <td><button class="btn btn-outline btn-sm">View Details</button></td>
+                    </tr>
+                    <tr>
+                        <td>Contract_Agreement.pdf</td>
+                        <td>2024-03-14</td>
+                        <td><span class="status-badge verified">Verified</span></td>
+                        <td><button class="btn btn-outline btn-sm">View Details</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>LegalTech</h4>
+                <p>Revolutionizing legal document processing with blockchain and AI</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="notarization.html">Notarization</a></li>
+                    <li><a href="smart-contracts.html">Smart Contracts</a></li>
+                    <li><a href="verification.html">Verification</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 LegalTech. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Document Upload Handling
+        const uploadArea = document.getElementById('verificationUpload');
+        const documentInput = document.getElementById('documentInput');
+        const resultsSection = document.getElementById('resultsSection');
+
+        uploadArea.addEventListener('click', () => documentInput.click());
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length) handleFile(files[0]);
+        });
+
+        documentInput.addEventListener('change', (e) => {
+            if (e.target.files.length) handleFile(e.target.files[0]);
+        });
+
+        function handleFile(file) {
+            // Update file details
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileType').textContent = file.type;
+            document.getElementById('uploadDate').textContent = new Date().toLocaleDateString();
+
+            // Show results section
+            resultsSection.style.display = 'block';
+
+            // Simulate verification process
+            showNotification('Starting document verification...', 'info');
+            
+            setTimeout(() => {
+                showNotification('Document verification completed!', 'success');
+            }, 2000);
+        }
+
+        // View Details Button
+        document.querySelectorAll('.btn-outline.btn-sm').forEach(button => {
+            button.addEventListener('click', function() {
+                const documentName = this.closest('tr').querySelector('td').textContent;
+                showNotification(`Viewing details for ${documentName}`, 'info');
+            });
+        });
+    </script>
+</body>
+</html> 
