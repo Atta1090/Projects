@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="">
+    
+    <title>Workforce Analysis - Saudi Arabia Health Workforce Planning System</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=tajawal:400,500,700|instrument-sans:400,500,600" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../../assets/images/logo.svg">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+            background: #1e293b;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: #1e293b;
+            border-bottom: 1px solid #334155;
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #10b981;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+        }
+        
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 16px;
+            background: white;
+            border-radius: 2px;
+        }
+        
+        .logo-text {
+            color: #10b981;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .main-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .nav-tab {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 16px 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .nav-tab.active {
+            color: white;
+            border-bottom-color: #3b82f6;
+        }
+        
+        .nav-tab:hover {
+            color: #e2e8f0;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Page Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+        
+        .page-info h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 4px;
+        }
+        
+        .page-info p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        .page-actions {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .action-btn {
+            background: #334155;
+            border: 1px solid #475569;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .action-btn:hover {
+            background: #475569;
+        }
+        
+        .action-btn.primary {
+            background: #3b82f6;
+            border-color: #3b82f6;
+        }
+        
+        .action-btn.primary:hover {
+            background: #2563eb;
+        }
+        
+        /* Analysis Filters */
+        .filters-section {
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .filters-title {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .filter-label {
+            color: #e2e8f0;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .filter-select {
+            background: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: #e2e8f0;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        .apply-filters-btn {
+            background: #3b82f6;
+            border: none;
+            color: white;
+            padding: 8px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-left: auto;
+            display: block;
+        }
+        
+        .apply-filters-btn:hover {
+            background: #2563eb;
+        }
+        
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .dashboard-card {
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .card-title {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            gap: 0;
+            background: #1e293b;
+            border-radius: 6px;
+            padding: 2px;
+        }
+        
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .tab-btn.active {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        /* Map Section */
+        .map-container {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        
+        .map-title {
+            color: #60a5fa;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .map-subtitle {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        .map-legend {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .legend-color.adequate { background: #10b981; }
+        .legend-color.moderate { background: #f59e0b; }
+        .legend-color.significant { background: #f97316; }
+        .legend-color.critical { background: #ef4444; }
+        
+        /* Key Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .metric-card {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        
+        .metric-label {
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .metric-value {
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .metric-change {
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+        
+        .metric-change.positive { color: #10b981; }
+        .metric-change.negative { color: #ef4444; }
+        
+        /* Category Chart */
+        .category-section {
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .category-chart {
+            background: #1e293b;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .chart-title {
+            color: #60a5fa;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .chart-subtitle {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        /* Gap Analysis Table */
+        .table-section {
+            background: #334155;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .export-btn {
+            background: #1e293b;
+            border: 1px solid #475569;
+            color: #94a3b8;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .export-btn:hover {
+            background: #334155;
+            color: white;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+        }
+        
+        .data-table th {
+            background: #1e293b;
+            color: #94a3b8;
+            padding: 12px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-bottom: 1px solid #475569;
+        }
+        
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #475569;
+            font-size: 14px;
+        }
+        
+        .data-table tr:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+        
+        .region-name {
+            color: #60a5fa;
+            font-weight: 500;
+        }
+        
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .status-adequate {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+        
+        .status-moderate {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+        
+        .status-critical {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+        
+        .gap-negative {
+            color: #ef4444;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .pagination-info {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        .pagination-controls {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .page-btn {
+            background: #1e293b;
+            border: 1px solid #475569;
+            color: #94a3b8;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            min-width: 32px;
+        }
+        
+        .page-btn.active {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+        
+        .page-btn:hover:not(.active) {
+            background: #334155;
+            color: white;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            border-top: 1px solid #334155;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+        
+        .footer-text {
+            color: #64748b;
+            font-size: 12px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .footer-link {
+            color: #64748b;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        
+        .footer-link:hover {
+            color: #94a3b8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tabs {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+            
+            .header {
+                padding: 0 16px;
+            }
+            
+            .main-content {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-section">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <span class="logo-text">Saudi Health</span>
+            </div>
+            <h1 class="main-title">Health Workforce Planning</h1>
+        </div>
+        
+        <nav class="nav-tabs">
+            <a href="../../dashboard.html" class="nav-tab">Dashboard</a>
+            <a href="workforce.html" class="nav-tab active">Workforce Analysis</a>
+            <a href="projections.html" class="nav-tab">Projections</a>
+            <a href="scenarios.html" class="nav-tab">Scenario Planning</a>
+            <a href="reports.html" class="nav-tab">Reports</a>
+        </nav>
+        
+        <div class="header-actions">
+            <div class="language-selector">
+                <span>English</span>
+                <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="user-menu">
+                <div class="user-avatar">U</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="page-info">
+                <h1>Workforce Analysis</h1>
+                <p>Analyze current healthcare workforce distribution and identify gaps</p>
+            </div>
+            <div class="page-actions">
+                <a href="#" class="action-btn">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                    Export Data
+                </a>
+                <a href="#" class="action-btn primary">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                    </svg>
+                    Schedule Report
+                </a>
+            </div>
+        </div>
+
+        <!-- Analysis Filters -->
+        <div class="filters-section">
+            <h2 class="filters-title">Analysis Filters</h2>
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label class="filter-label">Region</label>
+                    <select class="filter-select">
+                        <option>All Regions</option>
+                        <option>Riyadh Region</option>
+                        <option>Makkah Region</option>
+                        <option>Eastern Province</option>
+                        <option>Najran Region</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Healthcare Category</label>
+                    <select class="filter-select">
+                        <option>All Categories</option>
+                        <option>Physicians</option>
+                        <option>Nurses</option>
+                        <option>Pharmacists</option>
+                        <option>Medical Technicians</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Year</label>
+                    <select class="filter-select">
+                        <option>2023</option>
+                        <option>2022</option>
+                        <option>2021</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Analysis Type</label>
+                    <select class="filter-select">
+                        <option>Regional Distribution</option>
+                        <option>Category Analysis</option>
+                        <option>Gap Analysis</option>
+                    </select>
+                </div>
+            </div>
+            <button class="apply-filters-btn">Apply Filters</button>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Regional Workforce Distribution -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Regional Workforce Distribution</h2>
+                    <div class="tab-buttons">
+                        <button class="tab-btn active">Map</button>
+                        <button class="tab-btn">Chart</button>
+                        <button class="tab-btn">Table</button>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <div class="map-title">Interactive Saudi Arabia Map</div>
+                    <p class="map-subtitle">Shows workforce density by region</p>
+                </div>
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <div class="legend-color adequate"></div>
+                        <span>Adequate Staffing</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color moderate"></div>
+                        <span>Moderate Shortage</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color significant"></div>
+                        <span>Significant Shortage</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color critical"></div>
+                        <span>Critical Shortage</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Key Metrics</h2>
+                </div>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Total Workforce</div>
+                        <div class="metric-value">245,892</div>
+                        <div class="metric-change negative">-3.2% from previous year</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Population/Per...</div>
+                        <div class="metric-value">134:1</div>
+                        <div class="metric-change negative">-2.8% improvement</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Shortage Areas</div>
+                        <div class="metric-value">3</div>
+                        <div class="metric-change negative">-2 from previous year</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Annual Growth...</div>
+                        <div class="metric-value">4.7%</div>
+                        <div class="metric-change positive">+0.5% vs target</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workforce Distribution by Category -->
+        <div class="category-section">
+            <div class="card-header">
+                <h2 class="card-title">Workforce Distribution by Category</h2>
+            </div>
+            <div class="category-chart">
+                <div class="chart-title">Workforce Distribution Chart</div>
+                <p class="chart-subtitle">Shows breakdown by healthcare worker category</p>
+            </div>
+        </div>
+
+        <!-- Gap Analysis Table -->
+        <div class="table-section">
+            <div class="table-header">
+                <h2 class="card-title">Gap Analysis by Region</h2>
+                <a href="#" class="export-btn">Export to Excel</a>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>REGION</th>
+                        <th>REQUIRED</th>
+                        <th>CURRENT</th>
+                        <th>GAP</th>
+                        <th>GAP %</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="region-name">Riyadh Region</td>
+                        <td>76,230</td>
+                        <td>72,456</td>
+                        <td class="gap-negative">-3,774</td>
+                        <td class="gap-negative">-4.9%</td>
+                        <td><span class="status-badge status-moderate">Moderate Shortage</span></td>
+                    </tr>
+                    <tr>
+                        <td class="region-name">Makkah Region</td>
+                        <td>65,120</td>
+                        <td>63,875</td>
+                        <td class="gap-negative">-1,245</td>
+                        <td class="gap-negative">-1.9%</td>
+                        <td><span class="status-badge status-adequate">Adequate</span></td>
+                    </tr>
+                    <tr>
+                        <td class="region-name">Eastern Province</td>
+                        <td>52,450</td>
+                        <td>51,230</td>
+                        <td class="gap-negative">-1,220</td>
+                        <td class="gap-negative">-2.3%</td>
+                        <td><span class="status-badge status-adequate">Adequate</span></td>
+                    </tr>
+                    <tr>
+                        <td class="region-name">Najran Region</td>
+                        <td>14,520</td>
+                        <td>9,876</td>
+                        <td class="gap-negative">-4,644</td>
+                        <td class="gap-negative">-31.0%</td>
+                        <td><span class="status-badge status-critical">Critical Shortage</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <div class="pagination-info">Showing 1 to 4 of 13 regions</div>
+                <div class="pagination-controls">
+                    <button class="page-btn">‹</button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <button class="page-btn">›</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-text">© 2025 Saudi Arabia Health Workforce Planning System</div>
+        <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="#" class="footer-link">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    console.log(`Switched to ${this.textContent} view`);
+                });
+            });
+
+            // Filter functionality
+            const applyFiltersBtn = document.querySelector('.apply-filters-btn');
+            applyFiltersBtn.addEventListener('click', function() {
+                console.log('Applying filters...');
+                // Here you would implement filter logic
+                alert('Filters applied successfully!');
+            });
+
+            // Export functionality
+            document.querySelectorAll('.export-btn, .action-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const action = this.textContent.trim();
+                    console.log(`${action} clicked`);
+                    alert(`${action} functionality would be implemented here.`);
+                });
+            });
+
+            // Pagination
+            document.querySelectorAll('.page-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (!this.classList.contains('active')) {
+                        document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        console.log(`Page ${this.textContent} selected`);
+                    }
+                });
+            });
+
+            console.log('Workforce Analysis page initialized');
+        });
+    </script>
+</body>
+</html> 

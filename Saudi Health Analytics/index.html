@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="">
+    
+    <title>Saudi Arabia Health Workforce Planning System</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=tajawal:400,500,700|instrument-sans:400,500,600" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 0;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .logo svg {
+            width: 48px;
+            height: 48px;
+            color: #10b981;
+        }
+        
+        .logo span {
+            font-size: 28px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: #94a3b8;
+            margin-bottom: 32px;
+        }
+        
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 50px;
+        }
+        
+        .action-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .action-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #10b981;
+        }
+        
+        .action-card.upload-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+            border-color: #10b981;
+        }
+        
+        .action-card.upload-card:hover {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.3));
+        }
+        
+        .action-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            color: #10b981;
+        }
+        
+        .action-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+        
+        .action-description {
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+        
+        .action-button {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .action-button:hover {
+            background: #059669;
+        }
+        
+        .upload-button {
+            background: linear-gradient(135deg, #10b981, #059669);
+            font-size: 16px;
+            padding: 16px 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        
+        .upload-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 50px;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            color: #10b981;
+        }
+        
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: white;
+        }
+        
+        .feature-description {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 50px 0;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #10b981;
+            display: block;
+        }
+        
+        .stat-label {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                    <path d="M2 17L12 22L22 17"/>
+                    <path d="M2 12L12 17L22 12"/>
+                </svg>
+                <span>Saudi Health Workforce</span>
+            </div>
+            <h1>Healthcare Workforce Planning System</h1>
+            <p class="subtitle">Advanced Analytics & Strategic Planning for Saudi Arabia's Healthcare Future</p>
+        </div>
+
+        <!-- Quick Actions Section -->
+        <div class="quick-actions">
+            <!-- PROMINENT FILE UPLOAD CARD -->
+            <div class="action-card upload-card" onclick="window.location.href='/csv/'">
+                <div class="action-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                        <path d="M12,11L16,15H13V19H11V15H8L12,11Z"/>
+                    </svg>
+                </div>
+                <div class="action-title">📊 Import Your Data</div>
+                <div class="action-description">
+                    Upload your CSV/Excel files for workforce, population, and health data analysis. 
+                    Get instant insights and comprehensive reports.
+                </div>
+                <a href="/csv/" class="action-button upload-button">Upload Files Now</a>
+            </div>
+
+            <div class="action-card" onclick="window.location.href='/dashboard'">
+                <div class="action-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3,13H11V3H3M3,21H11V15H3M13,21H21V11H13M13,3V9H21V3"/>
+                    </svg>
+                </div>
+                <div class="action-title">📈 Real-Time Dashboard</div>
+                <div class="action-description">
+                    Monitor live workforce metrics, gap analysis, and key performance indicators across all 13 Saudi regions.
+                </div>
+                <a href="/dashboard" class="action-button">View Dashboard</a>
+            </div>
+
+            <div class="action-card" onclick="window.location.href='/projections'">
+                <div class="action-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16,11.78L20.24,4.45L21.97,5.45L16.74,14.5L10.23,10.75L5.46,19H22V21H2V3H4V17.54L9.5,8L16,11.78Z"/>
+                    </svg>
+                </div>
+                <div class="action-title">🔮 10-Year Projections</div>
+                <div class="action-description">
+                    Advanced Monte Carlo simulations for workforce supply and demand forecasting with 95% confidence intervals.
+                </div>
+                <a href="/projections" class="action-button">Generate Projections</a>
+            </div>
+
+            <div class="action-card" onclick="window.location.href='/scenarios'">
+                <div class="action-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M5,3L19,3C20.1,3 21,3.9 21,5L21,19C21,20.1 20.1,21 19,21L5,21C3.9,21 3,20.1 3,19L3,5C3,3.9 3.9,3 5,3M5,5L5,19L19,19L19,5L5,5M7,7L9,7L9,9L7,9L7,7M11,7L17,7L17,9L11,9L11,7M7,11L9,11L9,13L7,13L7,11M11,11L17,11L17,13L11,13L11,11M7,15L9,15L9,17L7,17L7,15M11,15L17,15L17,17L11,17L11,15Z"/>
+                    </svg>
+                </div>
+                <div class="action-title">🎯 Scenario Planning</div>
+                <div class="action-description">
+                    Explore "what-if" scenarios for policy changes, economic impacts, and strategic planning decisions.
+                </div>
+                <a href="/scenarios" class="action-button">Run Scenarios</a>
+            </div>
+
+            <div class="action-card" onclick="window.location.href='/reports'">
+                <div class="action-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14,17H7V15H14M17,13H7V11H17M17,9H7V7H17M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z"/>
+                    </svg>
+                </div>
+                <div class="action-title">📊 Comprehensive Reports</div>
+                <div class="action-description">
+                    Generate executive summaries, workforce analysis, and gap reports in multiple formats (PDF, Excel, CSV).
+                </div>
+                <a href="/reports" class="action-button">Generate Reports</a>
+            </div>
+
+            <div class="action-card" onclick="window.location.href='/auth/login'">
+                <div class="action-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10,17V14H3V10H10V7L15,12L10,17M10,2H19A2,2 0 0,1 21,4V20A2,2 0 0,1 19,22H10A2,2 0 0,1 8,20V18H10V20H19V4H10V6H8V4A2,2 0 0,1 10,2Z"/>
+                    </svg>
+                </div>
+                <div class="action-title">🔐 Secure Login</div>
+                <div class="action-description">
+                    Access the full system with role-based permissions. Demo: demo@health.gov.sa / demo123456
+                </div>
+                <a href="/auth/login" class="action-button">Login</a>
+            </div>
+        </div>
+
+        <!-- System Statistics -->
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-number">245K+</span>
+                <span class="stat-label">Healthcare Workers</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">13</span>
+                <span class="stat-label">Saudi Regions</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Medical Specialties</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">10</span>
+                <span class="stat-label">Year Projections</span>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"/>
+                    </svg>
+                </div>
+                <div class="feature-title">Real-Time Analytics</div>
+                <div class="feature-description">Live workforce monitoring with instant gap analysis</div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3Z"/>
+                    </svg>
+                </div>
+                <div class="feature-title">AI-Powered Insights</div>
+                <div class="feature-description">Machine learning for pattern recognition and predictions</div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
+                    </svg>
+                </div>
+                <div class="feature-title">Saudi Vision 2030</div>
+                <div class="feature-description">Aligned with national healthcare transformation goals</div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
+                    </svg>
+                </div>
+                <div class="feature-title">Government Grade Security</div>
+                <div class="feature-description">Enterprise-level security and compliance standards</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.action-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html> 

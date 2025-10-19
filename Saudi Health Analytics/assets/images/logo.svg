@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="60" viewBox="0 0 200 60" fill="none">
+  <path d="M24 10C15.1634 10 8 17.1634 8 26C8 34.8366 15.1634 42 24 42H40C48.8366 42 56 34.8366 56 26C56 17.1634 48.8366 10 40 10H24Z" fill="#10B981"/>
+  <path d="M24 14C17.3726 14 12 19.3726 12 26C12 32.6274 17.3726 38 24 38H40C46.6274 38 52 32.6274 52 26C52 19.3726 46.6274 14 40 14H24Z" fill="#ECFDF5"/>
+  <path d="M23 21C23 20.4477 23.4477 20 24 20H28C28.5523 20 29 20.4477 29 21V31C29 31.5523 28.5523 32 28 32H24C23.4477 32 23 31.5523 23 31V21Z" fill="#10B981"/>
+  <path d="M35 21C35 20.4477 35.4477 20 36 20H40C40.5523 20 41 20.4477 41 21V31C41 31.5523 40.5523 32 40 32H36C35.4477 32 35 31.5523 35 31V21Z" fill="#10B981"/>
+  <path d="M22 26C22 25.4477 22.4477 25 23 25H41C41.5523 25 42 25.4477 42 26V27C42 27.5523 41.5523 28 41 28H23C22.4477 28 22 27.5523 22 27V26Z" fill="#10B981"/>
+  <text x="65" y="26" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#10B981">Saudi Health</text>
+  <text x="65" y="38" font-family="Arial, sans-serif" font-size="10" font-weight="normal" fill="#64748B">Workforce Planning</text>
+</svg> 
