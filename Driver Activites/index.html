@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Activities Monitoring System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                <span>Driver Monitor</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active">
+                    <a href="index.html">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="modules/live-feed.html">
+                        <i class="fas fa-video"></i>
+                        <span>Live Feed</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="modules/activity-metrics.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Activity Metrics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="modules/incident-logs.html">
+                        <i class="fas fa-history"></i>
+                        <span>Incident Logs</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="modules/alert-panel.html">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Alert Panel</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="modules/settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="header-content">
+                    <h1>Dashboard Overview</h1>
+                    <div class="user-info">
+                        <span class="notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </span>
+                        <span class="user">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Admin</span>
+                        </span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Quick Stats -->
+                <div class="card stats-card">
+                    <h3>Today's Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <i class="fas fa-eye"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">12</span>
+                                <span class="stat-label">Distractions</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-bed"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">2</span>
+                                <span class="stat-label">Drowsiness</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <div class="stat-info">
+                                <span class="stat-value">5</span>
+                                <span class="stat-label">Phone Usage</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Preview -->
+                <div class="card preview-card">
+                    <h3>Live Preview</h3>
+                    <div class="preview-container">
+                        <div class="preview-placeholder">
+                            <i class="fas fa-video"></i>
+                            <p>Camera Feed</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Incidents -->
+                <div class="card incidents-card">
+                    <h3>Recent Incidents</h3>
+                    <div class="incidents-list">
+                        <div class="incident-item">
+                            <div class="incident-icon phone">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="incident-details">
+                                <span class="incident-type">Phone Usage Detected</span>
+                                <span class="incident-time">2 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="incident-item">
+                            <div class="incident-icon drowsy">
+                                <i class="fas fa-bed"></i>
+                            </div>
+                            <div class="incident-details">
+                                <span class="incident-type">Drowsiness Alert</span>
+                                <span class="incident-time">15 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="incident-item">
+                            <div class="incident-icon distraction">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="incident-details">
+                                <span class="incident-type">Distraction Detected</span>
+                                <span class="incident-time">1 hour ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Status -->
+                <div class="card status-card">
+                    <h3>System Status</h3>
+                    <div class="status-grid">
+                        <div class="status-item">
+                            <i class="fas fa-camera"></i>
+                            <span>Camera Active</span>
+                        </div>
+                        <div class="status-item">
+                            <i class="fas fa-microphone"></i>
+                            <span>Audio Active</span>
+                        </div>
+                        <div class="status-item">
+                            <i class="fas fa-database"></i>
+                            <span>Recording Active</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

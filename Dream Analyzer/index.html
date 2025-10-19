@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Encoder & Analyzer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-moon"></i>
+                <span>Dream Encoder</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#analyze">Analyze Dream</a></li>
+                <li><a href="#visualize">Visualize</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#profile">Profile</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Dream Input Section -->
+            <section id="dream-input" class="dream-section">
+                <h2>Record Your Dream</h2>
+                <div class="input-container">
+                    <div class="input-methods">
+                        <button class="input-method active" id="text-input-btn">
+                            <i class="fas fa-keyboard"></i> Text
+                        </button>
+                        <button class="input-method" id="voice-input-btn">
+                            <i class="fas fa-microphone"></i> Voice
+                        </button>
+                    </div>
+                    <textarea id="dream-text" placeholder="Describe your dream here..."></textarea>
+                    <button id="analyze-btn" class="primary-btn">
+                        <i class="fas fa-magic"></i> Analyze Dream
+                    </button>
+                </div>
+            </section>
+
+            <!-- Analysis Results -->
+            <section id="analysis-results" class="dream-section">
+                <div class="results-grid">
+                    <div class="result-card emotions">
+                        <h3>Emotional Analysis</h3>
+                        <div class="emotion-chart" id="emotion-chart">
+                            <!-- Emotion chart will be rendered here -->
+                        </div>
+                    </div>
+                    <div class="result-card visualization">
+                        <h3>Dream Visualization</h3>
+                        <div class="dream-image" id="dream-image">
+                            <!-- AI generated image will appear here -->
+                        </div>
+                    </div>
+                    <div class="result-card interpretation">
+                        <h3>Dream Interpretation</h3>
+                        <div class="interpretation-text" id="interpretation-text">
+                            <!-- AI interpretation will appear here -->
+                        </div>
+                    </div>
+                    <div class="result-card symbols">
+                        <h3>Key Symbols</h3>
+                        <div class="symbols-list" id="symbols-list">
+                            <!-- Dream symbols will be listed here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Dream Guide Chat -->
+            <section id="dream-chat" class="dream-section">
+                <h2>AI Dream Guide</h2>
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- Chat messages will appear here -->
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="chat-input-field" placeholder="Ask about your dream...">
+                        <button id="send-chat" class="chat-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2024 Dream Encoder & Analyzer. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Portal - HAR Healthcare</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/provider.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>HAR Healthcare</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="provider-portal.html" class="active">Provider Portal</a></li>
+            <li><a href="patient-list.html">Patients</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="login.html" class="login-btn">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="provider-container">
+        <aside class="provider-sidebar">
+            <div class="provider-info">
+                <img src="images/doctor-avatar.png" alt="Doctor Avatar" class="avatar">
+                <h3>Dr. Sarah Johnson</h3>
+                <p>Cardiologist</p>
+            </div>
+            <ul class="provider-menu">
+                <li class="active"><a href="#dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#patients"><i class="fas fa-users"></i> Patient List</a></li>
+                <li><a href="#alerts"><i class="fas fa-bell"></i> Alerts</a></li>
+                <li><a href="#analytics"><i class="fas fa-chart-line"></i> Analytics</a></li>
+                <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </aside>
+
+        <main class="provider-main">
+            <header class="provider-header">
+                <h2>Provider Dashboard</h2>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search patients...">
+                    </div>
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="provider-grid">
+                <!-- Patient Overview Card -->
+                <div class="provider-card overview-card">
+                    <h3>Patient Overview</h3>
+                    <div class="overview-stats">
+                        <div class="stat">
+                            <span class="stat-value">24</span>
+                            <span class="stat-label">Total Patients</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">5</span>
+                            <span class="stat-label">High Risk</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">12</span>
+                            <span class="stat-label">Active Alerts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Alerts Card -->
+                <div class="provider-card alerts-card">
+                    <h3>Recent Alerts</h3>
+                    <div class="alerts-list">
+                        <div class="alert-item critical">
+                            <div class="alert-header">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span class="alert-priority">Critical</span>
+                            </div>
+                            <div class="alert-content">
+                                <h4>Patient #12345 - Fall Detected</h4>
+                                <p>Location: Home, Time: 2:30 PM</p>
+                            </div>
+                            <div class="alert-actions">
+                                <button class="btn-action">View Details</button>
+                                <button class="btn-action">Contact Patient</button>
+                            </div>
+                        </div>
+                        <div class="alert-item warning">
+                            <div class="alert-header">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span class="alert-priority">Warning</span>
+                            </div>
+                            <div class="alert-content">
+                                <h4>Patient #12346 - Irregular Heart Rate</h4>
+                                <p>Duration: 15 minutes, Max: 120 BPM</p>
+                            </div>
+                            <div class="alert-actions">
+                                <button class="btn-action">View Details</button>
+                                <button class="btn-action">Contact Patient</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Patient Activity Chart -->
+                <div class="provider-card chart-card">
+                    <h3>Patient Activity Trends</h3>
+                    <canvas id="patientActivityChart"></canvas>
+                </div>
+
+                <!-- Recent Patient Updates -->
+                <div class="provider-card updates-card">
+                    <h3>Recent Patient Updates</h3>
+                    <div class="updates-list">
+                        <div class="update-item">
+                            <div class="update-header">
+                                <img src="images/patient1.jpg" alt="Patient" class="patient-avatar">
+                                <div class="update-info">
+                                    <h4>John Smith</h4>
+                                    <span class="update-time">2 hours ago</span>
+                                </div>
+                            </div>
+                            <p>Completed daily exercise routine</p>
+                            <div class="update-metrics">
+                                <span><i class="fas fa-walking"></i> 8,500 steps</span>
+                                <span><i class="fas fa-heartbeat"></i> 72 BPM</span>
+                            </div>
+                        </div>
+                        <div class="update-item">
+                            <div class="update-header">
+                                <img src="images/patient2.jpg" alt="Patient" class="patient-avatar">
+                                <div class="update-info">
+                                    <h4>Mary Johnson</h4>
+                                    <span class="update-time">4 hours ago</span>
+                                </div>
+                            </div>
+                            <p>Reported mild dizziness</p>
+                            <div class="update-metrics">
+                                <span><i class="fas fa-heartbeat"></i> 85 BPM</span>
+                                <span><i class="fas fa-thermometer-half"></i> 37.2°C</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/provider.js"></script>
+</body>
+</html> 

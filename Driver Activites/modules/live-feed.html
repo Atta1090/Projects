@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Feed - Driver Activities Monitoring System</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .live-feed-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            height: calc(100vh - 100px);
+        }
+
+        .camera-feed {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .feed-controls {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container {
+            aspect-ratio: 16/9;
+            background-color: var(--background-color);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .face-box {
+            position: absolute;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .hand-box {
+            position: absolute;
+            border: 2px solid #e74c3c;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .control-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .control-button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--secondary-color);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .control-button:hover {
+            background-color: #2980b9;
+        }
+
+        .control-button.danger {
+            background-color: var(--accent-color);
+        }
+
+        .control-button.danger:hover {
+            background-color: #c0392b;
+        }
+
+        .detection-settings {
+            margin-top: 20px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--background-color);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--secondary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                <span>Driver Monitor</span>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="../index.html">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="live-feed.html">
+                        <i class="fas fa-video"></i>
+                        <span>Live Feed</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="activity-metrics.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Activity Metrics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="incident-logs.html">
+                        <i class="fas fa-history"></i>
+                        <span>Incident Logs</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="alert-panel.html">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Alert Panel</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="header-content">
+                    <h1>Live Feed</h1>
+                    <div class="user-info">
+                        <span class="notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </span>
+                        <span class="user">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Admin</span>
+                        </span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="live-feed-container">
+                <div class="camera-feed">
+                    <h3>Camera Feed</h3>
+                    <div class="video-container">
+                        <video id="cameraFeed" autoplay muted>
+                            <source src="" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="overlay-container" id="overlayContainer">
+                            <!-- Overlay elements will be added here dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feed-controls">
+                    <h3>Controls</h3>
+                    <div class="control-buttons">
+                        <button class="control-button" id="startFeed">
+                            <i class="fas fa-play"></i> Start Feed
+                        </button>
+                        <button class="control-button danger" id="stopFeed">
+                            <i class="fas fa-stop"></i> Stop Feed
+                        </button>
+                        <button class="control-button" id="captureFrame">
+                            <i class="fas fa-camera"></i> Capture Frame
+                        </button>
+                        <button class="control-button" id="toggleRecording">
+                            <i class="fas fa-record-vinyl"></i> Start Recording
+                        </button>
+                    </div>
+
+                    <div class="detection-settings">
+                        <h3>Detection Settings</h3>
+                        <div class="setting-item">
+                            <span>Face Detection</span>
+                            <label class="switch">
+                                <input type="checkbox" id="faceDetection" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <span>Hand Detection</span>
+                            <label class="switch">
+                                <input type="checkbox" id="handDetection" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <span>Object Detection</span>
+                            <label class="switch">
+                                <input type="checkbox" id="objectDetection" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Mock video feed functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('cameraFeed');
+            const overlayContainer = document.getElementById('overlayContainer');
+            const startButton = document.getElementById('startFeed');
+            const stopButton = document.getElementById('stopFeed');
+            const captureButton = document.getElementById('captureFrame');
+            const recordButton = document.getElementById('toggleRecording');
+            let isRecording = false;
+
+            // Simulate face and hand detection
+            function simulateDetection() {
+                const faceBox = document.createElement('div');
+                faceBox.className = 'face-box';
+                faceBox.style.left = '20%';
+                faceBox.style.top = '20%';
+                faceBox.style.width = '200px';
+                faceBox.style.height = '200px';
+
+                const handBox = document.createElement('div');
+                handBox.className = 'hand-box';
+                handBox.style.left = '60%';
+                handBox.style.top = '40%';
+                handBox.style.width = '100px';
+                handBox.style.height = '100px';
+
+                overlayContainer.innerHTML = '';
+                overlayContainer.appendChild(faceBox);
+                overlayContainer.appendChild(handBox);
+            }
+
+            // Start feed simulation
+            startButton.addEventListener('click', () => {
+                video.style.backgroundColor = '#000';
+                simulateDetection();
+                setInterval(simulateDetection, 2000);
+            });
+
+            // Stop feed simulation
+            stopButton.addEventListener('click', () => {
+                video.style.backgroundColor = '#f5f6fa';
+                overlayContainer.innerHTML = '';
+            });
+
+            // Capture frame
+            captureButton.addEventListener('click', () => {
+                alert('Frame captured!');
+            });
+
+            // Toggle recording
+            recordButton.addEventListener('click', () => {
+                isRecording = !isRecording;
+                recordButton.innerHTML = isRecording ? 
+                    '<i class="fas fa-stop-circle"></i> Stop Recording' : 
+                    '<i class="fas fa-record-vinyl"></i> Start Recording';
+                recordButton.classList.toggle('danger', isRecording);
+            });
+
+            // Handle detection toggles
+            const detectionToggles = document.querySelectorAll('.detection-settings input');
+            detectionToggles.forEach(toggle => {
+                toggle.addEventListener('change', () => {
+                    simulateDetection();
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caregiver View - HAR Healthcare</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/caregiver.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>HAR Healthcare</h1>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="caregiver-view.html" class="active">Caregiver View</a></li>
+            <li><a href="patient-profile.html">Patient Profile</a></li>
+            <li><a href="reports.html">Reports</a></li>
+            <li><a href="login.html" class="login-btn">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="caregiver-container">
+        <aside class="caregiver-sidebar">
+            <div class="caregiver-info">
+                <img src="images/caregiver-avatar.png" alt="Caregiver Avatar" class="avatar">
+                <h3>Jane Smith</h3>
+                <p>Primary Caregiver</p>
+            </div>
+            <div class="patient-list">
+                <h4>My Patients</h4>
+                <ul>
+                    <li class="active">
+                        <img src="images/patient1.jpg" alt="Patient">
+                        <div class="patient-info">
+                            <h5>John Smith</h5>
+                            <span class="status online">Online</span>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/patient2.jpg" alt="Patient">
+                        <div class="patient-info">
+                            <h5>Mary Johnson</h5>
+                            <span class="status offline">Offline</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <ul class="caregiver-menu">
+                <li class="active"><a href="#overview"><i class="fas fa-home"></i> Overview</a></li>
+                <li><a href="#activity"><i class="fas fa-running"></i> Activity</a></li>
+                <li><a href="#health"><i class="fas fa-heartbeat"></i> Health</a></li>
+                <li><a href="#alerts"><i class="fas fa-bell"></i> Alerts</a></li>
+                <li><a href="#notes"><i class="fas fa-sticky-note"></i> Notes</a></li>
+            </ul>
+        </aside>
+
+        <main class="caregiver-main">
+            <header class="caregiver-header">
+                <div class="header-left">
+                    <h2>Patient Overview</h2>
+                    <div class="patient-selector">
+                        <select id="patientSelect">
+                            <option value="1">John Smith</option>
+                            <option value="2">Mary Johnson</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-emergency">
+                        <i class="fas fa-phone-alt"></i>
+                        Emergency Contact
+                    </button>
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">2</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="caregiver-grid">
+                <!-- Current Status Card -->
+                <div class="caregiver-card status-card">
+                    <h3>Current Status</h3>
+                    <div class="status-content">
+                        <div class="status-indicator">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Safe</span>
+                        </div>
+                        <div class="status-details">
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Location: Home</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Last Updated: 5 min ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Summary Card -->
+                <div class="caregiver-card activity-card">
+                    <h3>Today's Activity</h3>
+                    <div class="activity-summary">
+                        <div class="activity-item">
+                            <i class="fas fa-walking"></i>
+                            <div class="activity-info">
+                                <span class="activity-label">Steps</span>
+                                <span class="activity-value">8,547</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-chair"></i>
+                            <div class="activity-info">
+                                <span class="activity-label">Sitting Time</span>
+                                <span class="activity-value">4h 30m</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-bed"></i>
+                            <div class="activity-info">
+                                <span class="activity-label">Sleep</span>
+                                <span class="activity-value">7h 15m</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Health Metrics Card -->
+                <div class="caregiver-card health-card">
+                    <h3>Health Metrics</h3>
+                    <div class="health-metrics">
+                        <div class="metric">
+                            <i class="fas fa-heartbeat"></i>
+                            <div class="metric-info">
+                                <span class="metric-label">Heart Rate</span>
+                                <span class="metric-value">72 BPM</span>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-thermometer-half"></i>
+                            <div class="metric-info">
+                                <span class="metric-label">Temperature</span>
+                                <span class="metric-value">37.2°C</span>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <div class="metric-info">
+                                <span class="metric-label">Blood Pressure</span>
+                                <span class="metric-value">120/80</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Alerts Card -->
+                <div class="caregiver-card alerts-card">
+                    <h3>Recent Alerts</h3>
+                    <div class="alerts-list">
+                        <div class="alert-item">
+                            <div class="alert-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <div class="alert-content">
+                                <h4>Low Activity Warning</h4>
+                                <p>Patient has been sedentary for 2 hours</p>
+                                <span class="alert-time">2h ago</span>
+                            </div>
+                        </div>
+                        <div class="alert-item">
+                            <div class="alert-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="alert-content">
+                                <h4>Medication Taken</h4>
+                                <p>Morning medication confirmed</p>
+                                <span class="alert-time">4h ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Notes Card -->
+                <div class="caregiver-card notes-card">
+                    <h3>Quick Notes</h3>
+                    <div class="notes-form">
+                        <textarea placeholder="Add a note about the patient's condition..."></textarea>
+                        <button class="btn-save">Save Note</button>
+                    </div>
+                    <div class="notes-list">
+                        <div class="note-item">
+                            <div class="note-header">
+                                <span class="note-time">Today, 2:30 PM</span>
+                                <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                            </div>
+                            <p>Patient reported feeling tired after morning walk. Resting now.</p>
+                        </div>
+                        <div class="note-item">
+                            <div class="note-header">
+                                <span class="note-time">Yesterday, 8:15 PM</span>
+                                <button class="btn-edit"><i class="fas fa-edit"></i></button>
+                            </div>
+                            <p>Good appetite at dinner. Took all prescribed medications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/caregiver.js"></script>
+</body>
+</html> 

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Driver Activities Monitoring System</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .settings-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 20px;
+        }
+
+        .settings-nav {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .settings-nav button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .settings-nav button:hover,
+        .settings-nav button.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .settings-content {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .settings-section {
+            display: none;
+        }
+
+        .settings-section.active {
+            display: block;
+        }
+
+        .settings-section h3 {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--background-color);
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--secondary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .toggle-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .button-group button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button-group button.primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .button-group button.secondary {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+        }
+
+        .button-group button:hover {
+            opacity: 0.9;
+        }
+
+        .camera-preview {
+            width: 100%;
+            height: 200px;
+            background-color: var(--background-color);
+            border-radius: 5px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        .threshold-slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .threshold-value {
+            text-align: center;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                <span>Driver Monitor</span>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="../index.html">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="live-feed.html">
+                        <i class="fas fa-video"></i>
+                        <span>Live Feed</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="activity-metrics.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Activity Metrics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="incident-logs.html">
+                        <i class="fas fa-history"></i>
+                        <span>Incident Logs</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="alert-panel.html">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Alert Panel</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="header-content">
+                    <h1>Settings</h1>
+                    <div class="user-info">
+                        <span class="notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </span>
+                        <span class="user">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Admin</span>
+                        </span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="settings-container">
+                <div class="settings-nav">
+                    <button class="active" data-section="general">
+                        <i class="fas fa-cog"></i> General
+                    </button>
+                    <button data-section="detection">
+                        <i class="fas fa-eye"></i> Detection
+                    </button>
+                    <button data-section="alerts">
+                        <i class="fas fa-bell"></i> Alerts
+                    </button>
+                    <button data-section="camera">
+                        <i class="fas fa-camera"></i> Camera
+                    </button>
+                    <button data-section="storage">
+                        <i class="fas fa-database"></i> Storage
+                    </button>
+                </div>
+
+                <div class="settings-content">
+                    <!-- General Settings -->
+                    <div class="settings-section active" id="general">
+                        <h3>General Settings</h3>
+                        <div class="form-group">
+                            <label>System Name</label>
+                            <input type="text" value="Driver Monitor System">
+                        </div>
+                        <div class="form-group">
+                            <label>Language</label>
+                            <select>
+                                <option>English</option>
+                                <option>Spanish</option>
+                                <option>French</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Time Zone</label>
+                            <select>
+                                <option>UTC</option>
+                                <option>EST</option>
+                                <option>PST</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="toggle-group">
+                                <label>Dark Mode</label>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detection Settings -->
+                    <div class="settings-section" id="detection">
+                        <h3>Detection Settings</h3>
+                        <div class="form-group">
+                            <div class="toggle-group">
+                                <label>Face Detection</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="toggle-group">
+                                <label>Hand Detection</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="toggle-group">
+                                <label>Object Detection</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Drowsiness Threshold (seconds)</label>
+                            <input type="range" class="threshold-slider" min="1" max="5" value="3">
+                            <div class="threshold-value">3 seconds</div>
+                        </div>
+                    </div>
+
+                    <!-- Alert Settings -->
+                    <div class="settings-section" id="alerts">
+                        <h3>Alert Settings</h3>
+                        <div class="form-group">
+                            <div class="toggle-group">
+                                <label>Sound Alerts</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="toggle-group">
+                                <label>Visual Alerts</label>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Alert Volume</label>
+                            <input type="range" class="threshold-slider" min="0" max="100" value="80">
+                            <div class="threshold-value">80%</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Alert Sound</label>
+                            <select>
+                                <option>Default</option>
+                                <option>Beep</option>
+                                <option>Chime</option>
+                                <option>Siren</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Camera Settings -->
+                    <div class="settings-section" id="camera">
+                        <h3>Camera Settings</h3>
+                        <div class="form-group">
+                            <label>Camera Selection</label>
+                            <select>
+                                <option>Front Camera</option>
+                                <option>Back Camera</option>
+                                <option>External Camera</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Resolution</label>
+                            <select>
+                                <option>1080p</option>
+                                <option>720p</option>
+                                <option>480p</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Frame Rate</label>
+                            <select>
+                                <option>30 FPS</option>
+                                <option>24 FPS</option>
+                                <option>15 FPS</option>
+                            </select>
+                        </div>
+                        <div class="camera-preview">
+                            <i class="fas fa-camera"></i>
+                            <span>Camera Preview</span>
+                        </div>
+                    </div>
+
+                    <!-- Storage Settings -->
+                    <div class="settings-section" id="storage">
+                        <h3>Storage Settings</h3>
+                        <div class="form-group">
+                            <label>Storage Location</label>
+                            <input type="text" value="C:/DriverMonitor/Storage">
+                        </div>
+                        <div class="form-group">
+                            <label>Maximum Storage (GB)</label>
+                            <input type="number" value="100">
+                        </div>
+                        <div class="form-group">
+                            <label>Auto-Delete After (Days)</label>
+                            <input type="number" value="30">
+                        </div>
+                        <div class="form-group">
+                            <div class="toggle-group">
+                                <label>Enable Cloud Backup</label>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="primary">Save Changes</button>
+                        <button class="secondary">Reset to Default</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Handle settings navigation
+        document.querySelectorAll('.settings-nav button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                document.querySelectorAll('.settings-nav button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                button.classList.add('active');
+
+                // Show selected section
+                const sectionId = button.getAttribute('data-section');
+                document.querySelectorAll('.settings-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        // Handle threshold sliders
+        document.querySelectorAll('.threshold-slider').forEach(slider => {
+            const valueDisplay = slider.nextElementSibling;
+            
+            slider.addEventListener('input', () => {
+                valueDisplay.textContent = slider.value + 
+                    (slider.getAttribute('min') === '0' ? '%' : ' seconds');
+            });
+        });
+
+        // Handle save changes
+        document.querySelector('.button-group button.primary').addEventListener('click', () => {
+            alert('Settings saved successfully!');
+        });
+
+        // Handle reset to default
+        document.querySelector('.button-group button.secondary').addEventListener('click', () => {
+            if (confirm('Are you sure you want to reset all settings to default?')) {
+                alert('Settings reset to default values.');
+            }
+        });
+    </script>
+</body>
+</html> 

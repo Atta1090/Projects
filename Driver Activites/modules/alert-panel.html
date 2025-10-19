@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alert Panel - Driver Activities Monitoring System</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .alerts-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+        }
+
+        .alerts-list {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid var(--background-color);
+            transition: background-color 0.3s;
+        }
+
+        .alert-item:hover {
+            background-color: var(--background-color);
+        }
+
+        .alert-item:last-child {
+            border-bottom: none;
+        }
+
+        .alert-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .alert-icon.critical {
+            background-color: #e74c3c;
+        }
+
+        .alert-icon.warning {
+            background-color: #f39c12;
+        }
+
+        .alert-icon.info {
+            background-color: #3498db;
+        }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .alert-time {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .alert-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .alert-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .alert-button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 0.8rem;
+        }
+
+        .alert-button:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .alert-stats {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card {
+            background-color: var(--background-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        .alert-filters {
+            margin-bottom: 20px;
+        }
+
+        .filter-button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+        }
+
+        .filter-button:hover,
+        .filter-button.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .filter-button i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                <span>Driver Monitor</span>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="../index.html">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="live-feed.html">
+                        <i class="fas fa-video"></i>
+                        <span>Live Feed</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="activity-metrics.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Activity Metrics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="incident-logs.html">
+                        <i class="fas fa-history"></i>
+                        <span>Incident Logs</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="alert-panel.html">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Alert Panel</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="header-content">
+                    <h1>Alert Panel</h1>
+                    <div class="user-info">
+                        <span class="notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </span>
+                        <span class="user">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Admin</span>
+                        </span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="alerts-container">
+                <div class="alerts-list">
+                    <h3>Active Alerts</h3>
+                    <div id="alertsList">
+                        <!-- Alerts will be added here dynamically -->
+                    </div>
+                </div>
+
+                <div class="alert-stats">
+                    <h3>Alert Statistics</h3>
+                    <div class="stat-card">
+                        <div class="stat-value">5</div>
+                        <div class="stat-label">Active Alerts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Total Today</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Critical Alerts</div>
+                    </div>
+
+                    <div class="alert-filters">
+                        <h3>Filter Alerts</h3>
+                        <button class="filter-button active">
+                            <i class="fas fa-exclamation-circle"></i> All Alerts
+                        </button>
+                        <button class="filter-button">
+                            <i class="fas fa-exclamation-triangle"></i> Critical
+                        </button>
+                        <button class="filter-button">
+                            <i class="fas fa-exclamation"></i> Warnings
+                        </button>
+                        <button class="filter-button">
+                            <i class="fas fa-info-circle"></i> Info
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Mock alert data
+        const alerts = [
+            {
+                id: 1,
+                type: 'critical',
+                title: 'Drowsiness Detected',
+                description: 'Driver showing signs of drowsiness - eyes closed for 3 seconds',
+                time: '2 minutes ago',
+                icon: 'fa-bed'
+            },
+            {
+                id: 2,
+                type: 'warning',
+                title: 'Distraction Alert',
+                description: 'Driver looking away from road for extended period',
+                time: '5 minutes ago',
+                icon: 'fa-eye'
+            },
+            {
+                id: 3,
+                type: 'critical',
+                title: 'Phone Usage Detected',
+                description: 'Driver using phone while vehicle is in motion',
+                time: '10 minutes ago',
+                icon: 'fa-mobile-alt'
+            },
+            {
+                id: 4,
+                type: 'info',
+                title: 'System Status',
+                description: 'Camera calibration completed successfully',
+                time: '15 minutes ago',
+                icon: 'fa-camera'
+            }
+        ];
+
+        // Function to render alerts
+        function renderAlerts(alertsToRender = alerts) {
+            const alertsList = document.getElementById('alertsList');
+            alertsList.innerHTML = alertsToRender.map(alert => `
+                <div class="alert-item">
+                    <div class="alert-icon ${alert.type}">
+                        <i class="fas ${alert.icon}"></i>
+                    </div>
+                    <div class="alert-content">
+                        <div class="alert-header">
+                            <span class="alert-title">${alert.title}</span>
+                            <span class="alert-time">${alert.time}</span>
+                        </div>
+                        <div class="alert-description">${alert.description}</div>
+                        <div class="alert-actions">
+                            <button class="alert-button" onclick="acknowledgeAlert(${alert.id})">
+                                <i class="fas fa-check"></i> Acknowledge
+                            </button>
+                            <button class="alert-button" onclick="viewDetails(${alert.id})">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter alerts by type
+        function filterAlerts(type) {
+            const filteredAlerts = type === 'all' ? 
+                alerts : 
+                alerts.filter(alert => alert.type === type);
+            renderAlerts(filteredAlerts);
+        }
+
+        // Handle filter buttons
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.filter-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                button.classList.add('active');
+
+                const type = button.textContent.trim().toLowerCase().includes('all') ? 'all' :
+                    button.textContent.trim().toLowerCase().includes('critical') ? 'critical' :
+                    button.textContent.trim().toLowerCase().includes('warning') ? 'warning' : 'info';
+
+                filterAlerts(type);
+            });
+        });
+
+        // Action handlers
+        function acknowledgeAlert(id) {
+            alert(`Alert ${id} acknowledged`);
+        }
+
+        function viewDetails(id) {
+            alert(`Viewing details for alert ${id}`);
+        }
+
+        // Simulate new alerts
+        function simulateNewAlerts() {
+            const newAlert = {
+                id: alerts.length + 1,
+                type: ['critical', 'warning', 'info'][Math.floor(Math.random() * 3)],
+                title: 'New Alert',
+                description: 'This is a simulated alert for testing purposes',
+                time: 'Just now',
+                icon: 'fa-exclamation-circle'
+            };
+            alerts.unshift(newAlert);
+            renderAlerts();
+        }
+
+        // Initialize alerts and start simulation
+        renderAlerts();
+        setInterval(simulateNewAlerts, 10000); // Add new alert every 10 seconds
+    </script>
+</body>
+</html> 

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Logs - Driver Activities Monitoring System</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .logs-container {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 8px;
+            border: 1px solid var(--background-color);
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--background-color);
+            border-radius: 5px;
+            background-color: white;
+        }
+
+        .incidents-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .incidents-table th,
+        .incidents-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--background-color);
+        }
+
+        .incidents-table th {
+            background-color: var(--background-color);
+            font-weight: 600;
+        }
+
+        .incidents-table tr:hover {
+            background-color: var(--background-color);
+        }
+
+        .incident-type {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .incident-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .incident-icon.phone {
+            background-color: #e74c3c;
+        }
+
+        .incident-icon.drowsy {
+            background-color: #f39c12;
+        }
+
+        .incident-icon.distraction {
+            background-color: #2ecc71;
+        }
+
+        .severity {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .severity.high {
+            background-color: #fde8e8;
+            color: #e74c3c;
+        }
+
+        .severity.medium {
+            background-color: #fff3e0;
+            color: #f39c12;
+        }
+
+        .severity.low {
+            background-color: #e8f5e9;
+            color: #2ecc71;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .page-info {
+            color: var(--text-secondary);
+        }
+
+        .page-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .page-button {
+            padding: 8px 12px;
+            border: 1px solid var(--background-color);
+            border-radius: 5px;
+            background-color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .page-button:hover {
+            background-color: var(--background-color);
+        }
+
+        .page-button.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                <span>Driver Monitor</span>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="../index.html">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="live-feed.html">
+                        <i class="fas fa-video"></i>
+                        <span>Live Feed</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="activity-metrics.html">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Activity Metrics</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="incident-logs.html">
+                        <i class="fas fa-history"></i>
+                        <span>Incident Logs</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="alert-panel.html">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Alert Panel</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="header-content">
+                    <h1>Incident Logs</h1>
+                    <div class="user-info">
+                        <span class="notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </span>
+                        <span class="user">
+                            <i class="fas fa-user-circle"></i>
+                            <span>Admin</span>
+                        </span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="logs-container">
+                <div class="filters">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search incidents..." id="searchInput">
+                    </div>
+                    <div class="filter-group">
+                        <select id="typeFilter">
+                            <option value="">All Types</option>
+                            <option value="phone">Phone Usage</option>
+                            <option value="drowsy">Drowsiness</option>
+                            <option value="distraction">Distraction</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="severityFilter">
+                            <option value="">All Severities</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <input type="date" id="dateFilter">
+                    </div>
+                </div>
+
+                <table class="incidents-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Severity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="incidentsTableBody">
+                        <!-- Incident rows will be added here dynamically -->
+                    </tbody>
+                </table>
+
+                <div class="pagination">
+                    <div class="page-info">
+                        Showing 1-10 of 50 incidents
+                    </div>
+                    <div class="page-buttons">
+                        <button class="page-button">Previous</button>
+                        <button class="page-button active">1</button>
+                        <button class="page-button">2</button>
+                        <button class="page-button">3</button>
+                        <button class="page-button">Next</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Mock incident data
+        const incidents = [
+            {
+                time: '2024-02-20 14:30:00',
+                type: 'phone',
+                description: 'Phone usage detected while driving',
+                severity: 'high'
+            },
+            {
+                time: '2024-02-20 14:15:00',
+                type: 'drowsy',
+                description: 'Drowsiness detected - eyes closed for 3 seconds',
+                severity: 'high'
+            },
+            {
+                time: '2024-02-20 14:00:00',
+                type: 'distraction',
+                description: 'Driver looking away from road',
+                severity: 'medium'
+            },
+            {
+                time: '2024-02-20 13:45:00',
+                type: 'phone',
+                description: 'Phone usage detected while driving',
+                severity: 'high'
+            },
+            {
+                time: '2024-02-20 13:30:00',
+                type: 'drowsy',
+                description: 'Drowsiness detected - eyes closed for 2 seconds',
+                severity: 'medium'
+            }
+        ];
+
+        // Function to get incident icon
+        function getIncidentIcon(type) {
+            switch (type) {
+                case 'phone':
+                    return 'fa-mobile-alt';
+                case 'drowsy':
+                    return 'fa-bed';
+                case 'distraction':
+                    return 'fa-eye';
+                default:
+                    return 'fa-exclamation-circle';
+            }
+        }
+
+        // Function to render incidents
+        function renderIncidents(incidentsToRender = incidents) {
+            const tbody = document.getElementById('incidentsTableBody');
+            tbody.innerHTML = incidentsToRender.map(incident => `
+                <tr>
+                    <td>${incident.time}</td>
+                    <td>
+                        <div class="incident-type">
+                            <div class="incident-icon ${incident.type}">
+                                <i class="fas ${getIncidentIcon(incident.type)}"></i>
+                            </div>
+                            <span>${incident.type.charAt(0).toUpperCase() + incident.type.slice(1)}</span>
+                        </div>
+                    </td>
+                    <td>${incident.description}</td>
+                    <td>
+                        <span class="severity ${incident.severity}">
+                            ${incident.severity.charAt(0).toUpperCase() + incident.severity.slice(1)}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="page-button" onclick="viewDetails('${incident.time}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="page-button" onclick="exportIncident('${incident.time}')">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Filter incidents
+        function filterIncidents() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const typeFilter = document.getElementById('typeFilter').value;
+            const severityFilter = document.getElementById('severityFilter').value;
+            const dateFilter = document.getElementById('dateFilter').value;
+
+            const filteredIncidents = incidents.filter(incident => {
+                const matchesSearch = incident.description.toLowerCase().includes(searchTerm);
+                const matchesType = !typeFilter || incident.type === typeFilter;
+                const matchesSeverity = !severityFilter || incident.severity === severityFilter;
+                const matchesDate = !dateFilter || incident.time.startsWith(dateFilter);
+
+                return matchesSearch && matchesType && matchesSeverity && matchesDate;
+            });
+
+            renderIncidents(filteredIncidents);
+        }
+
+        // Event listeners for filters
+        document.getElementById('searchInput').addEventListener('input', filterIncidents);
+        document.getElementById('typeFilter').addEventListener('change', filterIncidents);
+        document.getElementById('severityFilter').addEventListener('change', filterIncidents);
+        document.getElementById('dateFilter').addEventListener('change', filterIncidents);
+
+        // Action handlers
+        function viewDetails(time) {
+            alert(`Viewing details for incident at ${time}`);
+        }
+
+        function exportIncident(time) {
+            alert(`Exporting incident from ${time}`);
+        }
+
+        // Initialize the table
+        renderIncidents();
+    </script>
+</body>
+</html> 
